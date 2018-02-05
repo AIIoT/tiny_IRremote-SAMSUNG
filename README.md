@@ -1,4 +1,4 @@
-# library modification by AIIoT
+# Library modification by AIIoT
 #tiny_IRremote-SAMSUNG
 
 -add Samsung Remote Protocol
