@@ -1,0 +1,9 @@
+* Zmodyfikowano przez AIIoT
+*  Zintegrowano protoków Samsunga 
+* 15 Styczeñ , 2018
+* http://aiiot.c0.pl
+
+* Mod by AIIoT
+*  Integrated Samsung protocol
+* 15 January , 2018
+* http://aiiot.c0.pl
