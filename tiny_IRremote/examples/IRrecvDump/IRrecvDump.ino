@@ -12,16 +12,18 @@
  */
 
 #include <tiny_IRremote.h>
+#include <SoftwareSerial.h>
+
+SoftwareSerial mySerial(RX, TX); // RX, TX
 
 int RECV_PIN = 2;
 
 IRrecv irrecv(RECV_PIN);
-
 decode_results results;
 
 void setup()
 {
-  Serial.begin(9600);
+  mySerial.begin(9600);
   irrecv.enableIRIn(); // Start the receiver
 }
 
@@ -33,49 +35,49 @@ void setup()
 void dump(decode_results *results) {
   int count = results->rawlen;
   if (results->decode_type == UNKNOWN) {
-    Serial.println("Could not decode message");
+    mySerial.println("Could not decode message");
   } 
   else {
     if (results->decode_type == NEC) {
-      Serial.print("Decoded NEC: ");
+      mySerial.print("Decoded NEC: ");
     } 
     else if (results->decode_type == SONY) {
-      Serial.print("Decoded SONY: ");
+      mySerial.print("Decoded SONY: ");
     } 
     else if (results->decode_type == RC5) {
-      Serial.print("Decoded RC5: ");
+      mySerial.print("Decoded RC5: ");
     } 
     else if (results->decode_type == RC6) {
-      Serial.print("Decoded RC6: ");
+      mySerial.print("Decoded RC6: ");
     }
     else if (results->decode_type == SAMSUNG) {
-      Serial.print("Decoded SAMSUNG: ");
+      mySerial.print("Decoded SAMSUNG: ");
     }
-    Serial.print(results->value, HEX);
-    Serial.print(" (");
-    Serial.print(results->bits, DEC);
-    Serial.println(" bits)");
+    mySerial.print(results->value, HEX);
+    mySerial.print(" (");
+    mySerial.print(results->bits, DEC);
+    mySerial.println(" bits)");
   }
-  Serial.print("Raw (");
-  Serial.print(count, DEC);
-  Serial.print("): ");
+  mySerial.print("Raw (");
+  mySerial.print(count, DEC);
+  mySerial.print("): ");
 
   for (int i = 0; i < count; i++) {
     if ((i % 2) == 1) {
-      Serial.print(results->rawbuf[i]*USECPERTICK, DEC);
+      mySerial.print(results->rawbuf[i]*USECPERTICK, DEC);
     } 
     else {
-      Serial.print(-(int)results->rawbuf[i]*USECPERTICK, DEC);
+      mySerial.print(-(int)results->rawbuf[i]*USECPERTICK, DEC);
     }
-    Serial.print(" ");
+    mySerial.print(" ");
   }
-  Serial.println("");
+  mySerial.println("");
 }
 
 
 void loop() {
   if (irrecv.decode(&results)) {
-    Serial.println(results.value, HEX);
+    mySerial.println(results.value, HEX);
     dump(&results);
     irrecv.resume(); // Receive the next value
   }
