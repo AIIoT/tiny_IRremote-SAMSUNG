@@ -14,10 +14,11 @@
 #include <tiny_IRremote.h>
 #include <SoftwareSerial.h>
 
-SoftwareSerial mySerial(RX, TX); // RX, TX
-
+#define RX    3
+#define TX    4
 int RECV_PIN = 2;
 
+SoftwareSerial mySerial(RX, TX); // RX, TX
 IRrecv irrecv(RECV_PIN);
 decode_results results;
 
